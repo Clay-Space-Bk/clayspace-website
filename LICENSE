@@ -1,0 +1,15 @@
+Copyright © 2026 Clay Space Ceramic Center. All rights reserved.
+
+This repository is proprietary and confidential. It is not open source, and no
+licence is granted by its being shared with you.
+
+You may use, copy and modify this code only for work performed for or on behalf
+of Clay Space, and only for as long as that engagement continues. You may not
+redistribute it, publish it, or reuse it in any other project.
+
+Third-party dependencies keep their own licences; see package.json and
+node_modules. Bundled fonts are documented in ATTRIBUTION.md — the one
+self-hosted family, Apfel Grotezk, is under the SIL Open Font License 1.1 with
+its licence text alongside the font files.
+
+For permissions beyond this notice, contact Clay Space.

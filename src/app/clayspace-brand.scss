@@ -1,0 +1,348 @@
+/* ==========================================================================
+   Clay Space brand layer — "Brand Exploration R3", direction locked.
+
+   Everything here is scoped to `.cs-brand`, so applying the class to a page
+   re-points the underlying template's custom properties at brand values
+   without touching any other route.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Apfel Grotezk — Collletttivo, Luigi Gorlero. SIL Open Font License 1.1;
+   the licence ships alongside the files in public/assets/fonts/.
+
+   Four weights, mapped as the guide names them. Paths are absolute so the
+   bundler treats them as runtime URLs served straight out of public/.
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'ApfelGrotezk';
+  src: url('/assets/fonts/ApfelGrotezk-Regular.woff2') format('woff2'),
+       url('/assets/fonts/ApfelGrotezk-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ApfelGrotezk';                 /* Mittel */
+  src: url('/assets/fonts/ApfelGrotezk-Mittel.woff2') format('woff2'),
+       url('/assets/fonts/ApfelGrotezk-Mittel.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ApfelGrotezk';                 /* Fett */
+  src: url('/assets/fonts/ApfelGrotezk-Fett.woff2') format('woff2'),
+       url('/assets/fonts/ApfelGrotezk-Fett.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ApfelGrotezk';                 /* Satt */
+  src: url('/assets/fonts/ApfelGrotezk-Satt.woff2') format('woff2'),
+       url('/assets/fonts/ApfelGrotezk-Satt.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- brand tokens ------------------------------------------------------
+   Defined on :root, not .cs-brand: the rail, cart drawer and other global
+   chrome render on pages that never enter the .cs-brand subtree, and an
+   unresolved var() computes to unset rather than falling back.
+   The --tp-* re-pointing below stays scoped — it restyles the inherited styles. */
+:root {
+  /* ---- palette ---------------------------------------------------------- */
+  --cs-orange: #EE552B;        /* primary — the logo blob */
+  --cs-orange-light: #FE8441;
+  --cs-cream: #FAF1E0;         /* primary background */
+  --cs-butter: #FFE890;        /* Clay Play yellow */
+  --cs-pink: #F9B5C0;
+  --cs-lavender: #CFB5FF;
+  --cs-blue: #ADC8CF;
+  --cs-olive: #C0BA62;
+  --cs-ochre: #805D1B;
+  --cs-green: #404E41;
+  --cs-brown: #614338;
+  --cs-oxblood: #5D1509;       /* ink + dark grounds */
+  --cs-wine: #85233C;
+  --cs-aubergine: #3E2B59;
+  --cs-navy: #263866;
+
+  --cs-ff: 'ApfelGrotezk', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.cs-brand {
+
+  /* ---- re-point the inherited tokens ----------------------------------- */
+  /* One family throughout: the guide prefers the grotesk over a serif. */
+  --tp-ff-playfair: var(--cs-ff);
+  --tp-ff-poppins: var(--cs-ff);
+  --tp-ff-teko: var(--cs-ff);
+  --tp-ff-onest: var(--cs-ff);
+  --tp-ff-inter: var(--cs-ff);
+  --tp-ff-body: var(--cs-ff);
+  --tp-ff-heading: var(--cs-ff);
+  --tp-ff-p: var(--cs-ff);
+  --tp-ff-grotesk: var(--cs-ff);
+  --tp-ff-clash-semibold: var(--cs-ff);
+
+  --tp-common-brown: var(--cs-oxblood);
+  --tp-common-black: var(--cs-oxblood);
+  --tp-common-red-2: var(--cs-orange);
+  --tp-common-yellow-1: var(--cs-butter);
+  --tp-cream-2: var(--cs-butter);
+  --tp-common-green-regular: var(--cs-butter);
+  --tp-text-body: var(--cs-oxblood);
+
+  /* Set on the scope root too: descendants that don't reference a --tp-ff-*
+     var inherit their family from <body>, which is outside this scope. */
+  font-family: var(--cs-ff);
+  color: var(--cs-oxblood);
+
+  /* ---- navigation ------------------------------------------------------- */
+  /* The inherited CSS hard-codes #616161 here; brand ink is oxblood. */
+  .tp-header-12-menu > nav > ul > li > a,
+  .tp-header-12-menu.tp-header-dropdown nav ul li.has-dropdown::after {
+    color: var(--cs-oxblood);
+  }
+  .tp-header-12-menu > nav > ul > li > a:hover {
+    color: var(--cs-orange);
+  }
+
+  /* ---- the serif italics become colour, not slant ----------------------- */
+  .st-hero-title i,
+  .tp-section-title-playfair span,
+  .st-video-text-title i,
+  .st-testimonial-item-content i {
+    font-style: normal;
+    color: var(--cs-orange);
+  }
+
+  /* The award/workshop list keeps its own accent on hover. */
+  .ar-award-item.active .ar-award-title {
+    color: var(--cs-orange);
+  }
+}
+
+/* A vessel shouldn't spin — the inherited CSS rotates this card's thumbnail. */
+.cs-brand .st-about-card-thumb img {
+  animation: none;
+}
+
+/* Dark grounds are oxblood, not near-black — see the deck's Gift Card and
+   "Wheel Throwing" applications. */
+.cs-brand .st-service-area {
+  background-color: #E9E0D6 !important;
+}
+.cs-brand .st-service-area .tp-section-title-playfair {
+  color: var(--cs-brown);
+}
+.cs-brand .st-service-area .tp-section-title-playfair span {
+  color: var(--cs-ochre);
+}
+
+
+/* --------------------------------------------------------------------------
+   Class cards — pinned, stacking panels dressed in the brand cut-out.
+   Type sits over the colour field to the left; the vessel window is right.
+   -------------------------------------------------------------------------- */
+.cs-brand .clay-class-card {
+  overflow: hidden;
+  border-radius: 18px;
+}
+.cs-brand .clay-class-card svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.cs-brand .clay-class-card-content {
+  position: absolute;
+  top: clamp(26px, 3.6vw, 54px);
+  left: clamp(26px, 4vw, 64px);
+  max-width: 48%;
+  color: var(--cs-cream);
+  z-index: 2;
+}
+.cs-brand .clay-class-card-title {
+  font-size: clamp(1.9rem, 4vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: -.02em;
+  margin: 0 0 14px;
+}
+.cs-brand .clay-class-card-title a {
+  color: var(--cs-cream);
+}
+.cs-brand .clay-class-card-title a:hover {
+  color: var(--cs-butter);
+}
+.cs-brand .clay-class-card-meta {
+  font-size: clamp(.86rem, 1.1vw, 1rem);
+  line-height: 1.6;
+  margin: 0 0 14px;
+  color: rgba(250, 241, 224, .9);
+}
+
+/* the facts someone needs before they'd commit */
+.cs-brand .clay-class-card-points {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+}
+.cs-brand .clay-class-card-points li {
+  position: relative;
+  padding-left: 18px;
+  font-size: clamp(.8rem, 1vw, .94rem);
+  line-height: 1.55;
+  color: rgba(250, 241, 224, .72);
+}
+.cs-brand .clay-class-card-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cs-butter);
+  opacity: .8;
+}
+
+/* The card's calls to action — solid cream against the colour field, picking
+   up that card's own colour for the label. */
+.cs-brand .clay-class-cta {
+  display: inline-flex;
+  align-items: center;
+  font-size: clamp(.85rem, 1vw, 1rem);
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 16px 38px;
+  border-radius: 40px;
+  white-space: nowrap;
+  background: var(--cs-cream);
+  color: var(--card-color, #5D1509);
+  border: 1px solid var(--cs-cream);
+  transition: background .18s ease, color .18s ease, border-color .18s ease;
+}
+.cs-brand .clay-class-cta:hover {
+  background: var(--cs-butter);
+  border-color: var(--cs-butter);
+  color: var(--card-color, #5D1509);
+}
+
+/* Below the pin breakpoint the cards simply stack; give the type room. */
+@media (max-width: 767px) {
+  .cs-brand .clay-class-card-content {
+    position: static;
+    transform: none;
+    max-width: 100%;
+    padding: 24px 22px 30px;
+    background: var(--cs-oxblood);
+  }
+  .cs-brand .clay-class-card {
+    background: var(--cs-oxblood);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Hero — flat vessel silhouettes, sized to sit as a composition rather than
+   the inherited small decorative squares.
+   -------------------------------------------------------------------------- */
+.cs-brand .clay-hero-forms img {
+  width: clamp(150px, 20vw, 280px);
+  height: auto;
+}
+@media (max-width: 1199px) {
+  .cs-brand .clay-hero-forms {
+    top: 8%;
+  }
+  .cs-brand .clay-hero-forms img {
+    width: clamp(120px, 16vw, 170px);
+  }
+}
+
+
+/* Hero standfirst — carries the page heading at text size, not display size. */
+.cs-brand .clay-hero-line {
+  font-size: 48pt;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+  margin: -72px 0 clamp(20px, 3vw, 40px);
+  color: var(--cs-oxblood);
+}
+/* the hard break is for desktop; let it wrap naturally when there's no room */
+@media (max-width: 767px) {
+  .cs-brand .clay-hero-line {
+    font-size: 30pt;
+    /* narrow screens have no room beside the CTA, so start below it */
+    margin-top: clamp(120px, 30vw, 170px);
+  }
+  .cs-brand .clay-hero-line br {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Hero — the illustrated still life sits as the section's background, anchored
+   to the bottom edge so the pots keep their ground line at every width.
+   The image's own ground (#F2EBE5) is set as the backing colour so the letter-
+   boxed area either side blends into it rather than showing a seam.
+   -------------------------------------------------------------------------- */
+.cs-brand .st-hero-area {
+  background-color: #F2EBE5;
+  /* A flat wash of the backing colour sits over the art at 75%, leaving the
+     art at a quarter strength. Doing it this way rather than with opacity keeps the art a
+     background, so the copy above it needs no stacking context. */
+  background-image:
+    linear-gradient(rgba(242, 235, 229, .75), rgba(242, 235, 229, .75)),
+    url("/assets/img/clayspace/homev3.jpg");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center bottom;
+  background-size: 100% 100%, 100% auto;
+  /* The art is 16:9, so at full width it is exactly 56.25vw tall. Reserving
+     that as bottom padding lets the copy above it be any height without ever
+     landing on the illustration. Less 200px, to pull the art up the page. */
+  padding-bottom: calc(56.25vw - 200px);
+}
+
+/* Copy sits in the clear band above the illustration. */
+.cs-brand .st-hero-area .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Primary action — parked in the top right, clear of the floating logo, and
+   in aubergine so it reads as its own thing rather than a second logo. */
+.cs-brand .clay-hero-cta {
+  position: absolute;
+  /* tucked up so its top edge slides behind the floating logo */
+  top: clamp(52px, 5vw, 62px);
+  right: 24px;
+  margin: 0;
+  z-index: 3;
+}
+.cs-brand .clay-hero-cta a {
+  width: clamp(150px, 16vw, 210px);
+  height: clamp(150px, 16vw, 210px);
+  /* a thrown-and-squashed blob rather than a circle, echoing the logo mark */
+  border-radius: 58% 42% 47% 53% / 46% 55% 45% 54%;
+  background-color: #6B5D54; /* matches the nav rail */
+  color: var(--cs-cream);
+}
+.cs-brand .clay-hero-cta a .st-hero-btn-text {
+  color: var(--cs-cream);
+}
+.cs-brand .clay-hero-cta a svg {
+  stroke: var(--cs-cream);
+  color: var(--cs-cream);
+}
+.cs-brand .clay-hero-cta a:hover {
+  background-color: var(--cs-orange);
+}
+.cs-brand .clay-hero-cta a:hover .st-hero-btn-text {
+  color: var(--cs-cream);
+}
