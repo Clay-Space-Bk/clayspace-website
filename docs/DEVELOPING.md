@@ -113,8 +113,9 @@ and leave a comment saying so.
 Three layers, in cascade order — see
 [ARCHITECTURE.md §4](ARCHITECTURE.md#4--styling-in-three-layers).
 
-- Reach for `var(--cs-*)` before a hex value. Tokens live in
-  `src/app/clayspace-brand.scss`.
+- Reach for `var(--cs-*)` before a hex value. The palette lives in
+  `@clayspace/tokens`, shared with the admin app — edit `tokens.json` there and
+  rebuild. Do not add a `--cs-*` to this repo; that is how the two drifted.
 - A component that renders **inside** `.cs-brand` can be styled in the brand
   layer. One that renders outside it — cart drawer, footer, mailing list — has
   to go in `globals.scss`.

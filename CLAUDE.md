@@ -66,7 +66,8 @@ source of truth and are worth opening before non-trivial work:
 |---|---|
 | `src/app/` | Routes. Parenthesised groups — `(shops)`, `(contacts)` — do not appear in the URL |
 | `src/app/layout.tsx` | Root layout, metadata, site-wide JSON-LD |
-| `src/app/clayspace-brand.scss` | Brand tokens, `.cs-brand` scope |
+| `@clayspace/tokens` | **The palette.** Shared with the admin app; edit `tokens.json` there, not here |
+| `src/app/clayspace-brand.scss` | `@font-face`, the `.cs-brand` scope, and the `--tp-*` re-pointing |
 | `src/app/globals.scss` | Globals + branded components that render outside `.cs-brand` |
 | `src/app/robots.ts` · `sitemap.ts` | `/robots.txt`, `/sitemap.xml`. Keep them in step |
 | `src/components/clayspace/` | Every Clay Space component |

@@ -1,7 +1,9 @@
 # Clay Space — Style Guide
 
-Derived from **Brand Exploration R3** (direction locked). Everything here is
-implemented in `src/app/clayspace-brand.scss`.
+Derived from **Brand Exploration R3** (direction locked). The palette is
+implemented in [`@clayspace/tokens`](https://github.com/Clay-Space-Bk/clayspace-tokens),
+shared with the admin app; `src/app/clayspace-brand.scss` consumes it and adds
+this site's `@font-face` and `.cs-brand` scope.
 
 A live version renders at **`/style-guide`** — run `npm run dev` and open
 <http://localhost:3007/style-guide>. Prefer it to this file when checking a

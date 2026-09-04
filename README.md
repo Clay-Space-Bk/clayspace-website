@@ -66,7 +66,7 @@ ONE, a separate app; see [docs/WBS.md](docs/WBS.md) §6.
 |---|---|
 | `src/app/` | Routes — one directory per URL. Parenthesised groups (`(shops)`, `(contacts)`) organise files without appearing in the URL |
 | `src/app/layout.tsx` | Root layout, site metadata, site-wide JSON-LD |
-| `src/app/clayspace-brand.scss` | **Brand layer** — palette, type, the `.cs-brand` scope |
+| `src/app/clayspace-brand.scss` | **Brand layer** — `@font-face`, the `.cs-brand` scope, and the `--tp-*` re-pointing. The palette itself comes from `@clayspace/tokens` |
 | `src/app/globals.scss` | Global styles, and branded components that render outside `.cs-brand` |
 | `src/app/robots.ts` · `sitemap.ts` | Generate `/robots.txt` and `/sitemap.xml` |
 | `src/components/clayspace/` | Every Clay Space component. Start here |
@@ -115,8 +115,11 @@ wrong.
 | Cards | 18px radius; interactive elements square |
 | Organic blobs | brand marks only — the logo and the hero CTA |
 
-Prefer `var(--cs-*)` over a hex value. The tokens are defined once, in
-`src/app/clayspace-brand.scss`.
+Prefer `var(--cs-*)` over a hex value. The palette is defined once, in
+[`@clayspace/tokens`](https://github.com/Clay-Space-Bk/clayspace-tokens) —
+shared with the admin app, so a colour change lands in both. Edit `tokens.json`
+there and rebuild; adding a `--cs-*` to this repo is how the two drifted apart
+before.
 
 ---
 

@@ -85,9 +85,23 @@ Order matters, because the layers are equally specific and the later one wins.
 
 1. **`public/assets/scss/`** — the base Sass layer. ~89 partials, forwarded
    through `main.scss`. Grid, typography scale, component skeletons.
-2. **`src/app/clayspace-brand.scss`** — the brand layer. Defines `--cs-*`
-   tokens and re-points the base layer's custom properties, scoped under
-   `.cs-brand`.
+2. **`src/app/clayspace-brand.scss`** — the brand layer. It `@use`s
+   `@clayspace/tokens` for the palette, declares this site's `@font-face`
+   blocks, and re-points the base layer's custom properties under `.cs-brand`.
+
+   **The palette is not defined here.** `@clayspace/tokens` is a separate,
+   public repository shared with the admin app: one `tokens.json`, generated
+   into CSS, Sass and TypeScript. It exists because the palette used to live in
+   three places across two repositories and had already drifted — the same
+   typeface was registered under two family names, so the admin was silently
+   falling back to Helvetica. Change a colour there, not here.
+
+   Two mechanical traps. The `@use` must sit above every other rule in the file,
+   including the `@font-face` blocks, because Sass requires it. And Sass
+   resolves bare specifiers against its load paths and ignores a package's
+   `exports` map, so `next.config.ts` puts `node_modules` on
+   `sassOptions.loadPaths` — without it the import fails no matter how the
+   package is written.
 3. **`src/app/globals.scss`** — global styles, plus branded components that
    render *outside* the `.cs-brand` scope (cart drawer, footer, mailing list),
    which is why they can't live in layer 2.
