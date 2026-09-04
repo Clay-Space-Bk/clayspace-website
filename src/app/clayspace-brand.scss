@@ -1,3 +1,7 @@
+/* Shared with Studio ONE — see the brand-tokens note further down.
+   Sass requires @use before any other rule, so it has to sit up here. */
+@use '@clayspace/tokens/dist/tokens.scss';
+
 /* ==========================================================================
    Clay Space brand layer — "Brand Exploration R3", direction locked.
 
@@ -47,30 +51,19 @@
 }
 
 /* ---- brand tokens ------------------------------------------------------
-   Defined on :root, not .cs-brand: the rail, cart drawer and other global
-   chrome render on pages that never enter the .cs-brand subtree, and an
-   unresolved var() computes to unset rather than falling back.
-   The --tp-* re-pointing below stays scoped — it restyles the inherited styles. */
-:root {
-  /* ---- palette ---------------------------------------------------------- */
-  --cs-orange: #EE552B;        /* primary — the logo blob */
-  --cs-orange-light: #FE8441;
-  --cs-cream: #FAF1E0;         /* primary background */
-  --cs-butter: #FFE890;        /* Clay Play yellow */
-  --cs-pink: #F9B5C0;
-  --cs-lavender: #CFB5FF;
-  --cs-blue: #ADC8CF;
-  --cs-olive: #C0BA62;
-  --cs-ochre: #805D1B;
-  --cs-green: #404E41;
-  --cs-brown: #614338;
-  --cs-oxblood: #5D1509;       /* ink + dark grounds */
-  --cs-wine: #85233C;
-  --cs-aubergine: #3E2B59;
-  --cs-navy: #263866;
+   The palette is NOT defined here any more. `@clayspace/tokens` is the single
+   source of truth, shared with Studio ONE, and it emits every --cs-* on :root
+   — not on .cs-brand, because the rail, cart drawer and other global chrome
+   render on pages that never enter the .cs-brand subtree, and an unresolved
+   var() computes to unset rather than falling back.
 
-  --cs-ff: 'ApfelGrotezk', 'Helvetica Neue', Arial, sans-serif;
-}
+   To change a colour, edit tokens.json in that package and rebuild. Adding a
+   --cs-* here instead is how the site and the admin drifted apart before.
+   The --tp-* re-pointing below stays scoped — it restyles the base layer.
+
+   The `@use` itself lives at the top of this file: Sass requires @use rules
+   before any other rule, and the @font-face blocks below would otherwise
+   come first. */
 
 .cs-brand {
 
