@@ -81,7 +81,9 @@ const ClayCutout: React.FC<Props> = ({
     src,
     alt,
     shape = "jug",
-    color = "#EE552B",
+    // A custom property, not a hex — applied via `style` above, because
+    // var() does not resolve in an SVG presentation attribute.
+    color = "var(--cs-orange)",
     ratio = 1,
     align = "center",
     scale = 1,
@@ -140,7 +142,7 @@ const ClayCutout: React.FC<Props> = ({
             />
 
             {/* the colour field, withheld wherever the vessel is */}
-            <rect x="0" y="0" width={W} height={H} fill={color} mask={`url(#${maskId})`} />
+            <rect x="0" y="0" width={W} height={H} style={{ fill: color }} mask={`url(#${maskId})`} />
         </svg>
     );
 };

@@ -4,6 +4,7 @@ import ShopModernHeader from "@/layouts/headers/ShopModernHeader";
 import CartOffcanvas from "@/components/offcanvas/CartOffcanvas";
 import SearchArea from "@/components/search-area/SearchArea";
 import { useState } from "react";
+import { tokens } from "@clayspace/tokens";
 
 const wrap: React.CSSProperties = { maxWidth: 1080, margin: 0, padding: 0 };
 const sec = (bg = "#FFFDFB"): React.CSSProperties => ({ padding: "48px 48px 48px clamp(24px, 14vw, 140px)", background: bg, borderTop: "1px solid #ece7e2" });
@@ -11,8 +12,12 @@ const eyebrow: React.CSSProperties = { color: "#7a5a48", fontSize: ".72rem", fon
 const h2: React.CSSProperties = { fontSize: "clamp(1.5rem,3vw,2rem)", letterSpacing: "-.02em", margin: "0 0 20px" };
 const input: React.CSSProperties = { width: "100%", border: "1px solid #E6DCCF", borderRadius: 10, background: "#fff", padding: "13px 14px", fontSize: ".98rem", color: "#1F1A17", outline: "none" };
 
-const colors = [
-    ["Orange · Primary", "#EE552B", "CTA hover, accents, active states"],
+const colors: [string, string, string][] = [
+    // Orange is read from the shared token package rather than restated, so this
+    // page cannot drift from the palette it documents. The entries below are a
+    // separate UI palette that is NOT in @clayspace/tokens — orange is the only
+    // overlap. Worth deciding whether they belong in the token set.
+    ["Orange · Primary", tokens.orange, "CTA hover, accents, active states"],
     ["Brown · Button", "#3E3429", "Primary button base"],
     ["Clay", "#B14D1D", "Prices, secondary links"],
     ["Deep Clay", "#692B12", "Rare deep accent"],

@@ -136,11 +136,11 @@ a.cs-btn:hover {
    ========================================================================== */
 .cartmini__area {
   width: min(100vw, 460px) !important;
-  background: #FAF1E0 !important;
+  background: var(--cs-cream) !important;
   box-shadow: -16px 0 50px rgba(26, 20, 17, .28);
   transition: transform .42s cubic-bezier(.2, .7, .2, 1) !important;
   font-family: 'ApfelGrotezk', 'Poppins', 'Helvetica Neue', Arial, sans-serif;
-  color: #5D1509;
+  color: var(--cs-oxblood);
 }
 .cartmini__wrapper {
   padding-left: 36px;
@@ -148,23 +148,23 @@ a.cs-btn:hover {
 }
 .cartmini__top-title {
   padding: 26px 0 18px;
-  border-bottom-color: rgba(93, 21, 9, .18);
+  border-bottom-color: var(--cs-oxblood-a18);
 }
 .cartmini__top-title h4 {
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: -.01em;
-  color: #5D1509;
+  color: var(--cs-oxblood);
 }
 .cartmini__close {
   top: 26px;
 }
 .cartmini__close-btn {
-  color: #5D1509;
+  color: var(--cs-oxblood);
 }
 .cartmini__widget-item {
   align-items: flex-start;
-  border-bottom: 1px solid rgba(93, 21, 9, .12);
+  border-bottom: 1px solid var(--cs-oxblood-a12);
   padding: 22px 0;
 }
 
@@ -176,7 +176,7 @@ a.cs-btn:hover {
   height: 86px;
   overflow: hidden;
   margin-right: 16px;
-  border: 1px solid rgba(93, 21, 9, .15);
+  border: 1px solid var(--cs-oxblood-a15);
   background: #EFE6D9;
 }
 .cartmini__thumb a {
@@ -191,42 +191,42 @@ a.cs-btn:hover {
   display: block;
 }
 .cartmini__title a {
-  color: #5D1509;
+  color: var(--cs-oxblood);
   font-weight: 600;
 }
 .cartmini__title a:hover {
-  color: #EE552B;
+  color: var(--cs-orange);
 }
 .cartmini__price {
-  color: #EE552B;
+  color: var(--cs-orange);
   font-weight: 700;
 }
 .cartmini__quantity {
-  color: rgba(93, 21, 9, .5);
+  color: var(--cs-oxblood-a50);
   font-size: .82rem;
   margin-left: 5px;
 }
 .cartmini__stepper button:hover {
-  background: #5D1509 !important;
-  border-color: #5D1509 !important;
-  color: #FAF1E0 !important;
+  background: var(--cs-oxblood) !important;
+  border-color: var(--cs-oxblood) !important;
+  color: var(--cs-cream) !important;
 }
 .cartmini__del {
-  color: rgba(93, 21, 9, .45);
+  color: var(--cs-oxblood-a45);
 }
 .cartmini__del:hover {
-  color: #EE552B;
+  color: var(--cs-orange);
 }
 .cartmini__checkout {
   padding-bottom: 30px;
 }
 .cartmini__checkout-title {
-  border-top: 1px solid rgba(93, 21, 9, .18);
+  border-top: 1px solid var(--cs-oxblood-a18);
   padding-top: 22px;
 }
 .cartmini__checkout-title h4,
 .cartmini__checkout-title span {
-  color: #5D1509;
+  color: var(--cs-oxblood);
   font-weight: 700;
 }
 
@@ -246,33 +246,33 @@ a.cs-btn:hover {
 }
 .cartmini__empty-btn {
   width: auto;
-  background: #EE552B;
-  color: #FAF1E0 !important;
-  border: 1px solid #EE552B;
+  background: var(--cs-orange);
+  color: var(--cs-cream) !important;
+  border: 1px solid var(--cs-orange);
 }
 .cartmini__empty-btn:hover {
-  background: #5D1509;
-  border-color: #5D1509;
+  background: var(--cs-oxblood);
+  border-color: var(--cs-oxblood);
 }
 .cartmini__checkout-btn a:first-child {
-  background: #EE552B !important;
-  border: 1px solid #EE552B !important;
-  color: #FAF1E0 !important;
+  background: var(--cs-orange) !important;
+  border: 1px solid var(--cs-orange) !important;
+  color: var(--cs-cream) !important;
   margin-bottom: 10px;
 }
 .cartmini__checkout-btn a:first-child:hover {
-  background: #5D1509 !important;
-  border-color: #5D1509 !important;
+  background: var(--cs-oxblood) !important;
+  border-color: var(--cs-oxblood) !important;
 }
 .cartmini__checkout-btn a:last-child {
   background: transparent !important;
-  border: 1px solid rgba(93, 21, 9, .35) !important;
-  color: #5D1509 !important;
+  border: 1px solid var(--cs-oxblood-a35) !important;
+  color: var(--cs-oxblood) !important;
 }
 .cartmini__checkout-btn a:last-child:hover {
-  background: #5D1509 !important;
-  border-color: #5D1509 !important;
-  color: #FAF1E0 !important;
+  background: var(--cs-oxblood) !important;
+  border-color: var(--cs-oxblood) !important;
+  color: var(--cs-cream) !important;
 }
 
 @media (max-width: 600px) {
@@ -308,7 +308,7 @@ a.cs-btn:hover {
   margin: 0 0 4px;
   font-size: 1.15rem;
   font-weight: 700;
-  color: #FAF1E0;
+  color: var(--cs-cream);
   letter-spacing: -.01em;
 }
 .cs-mailing-copy p {
@@ -329,7 +329,7 @@ a.cs-btn:hover {
   border-right: 0;
   border-radius: 0;
   background: rgba(255, 255, 255, .06);
-  color: #FAF1E0;
+  color: var(--cs-cream);
   padding: 0 16px;
   font-family: inherit;
   font-size: .95rem;
@@ -339,14 +339,14 @@ a.cs-btn:hover {
   color: rgba(255, 255, 255, .42);
 }
 .cs-mailing-form input:focus {
-  border-color: #EE552B;
+  border-color: var(--cs-orange);
 }
 .cs-mailing-form button {
   height: 50px;
-  border: 1px solid #EE552B;
+  border: 1px solid var(--cs-orange);
   border-radius: 0;
-  background: #EE552B;
-  color: #FAF1E0;
+  background: var(--cs-orange);
+  color: var(--cs-cream);
   padding: 0 30px;
   font-family: inherit;
   font-size: .9rem;
@@ -357,14 +357,14 @@ a.cs-btn:hover {
   transition: background .18s ease, border-color .18s ease;
 }
 .cs-mailing-form button:hover {
-  background: #FAF1E0;
-  border-color: #FAF1E0;
-  color: #5D1509;
+  background: var(--cs-cream);
+  border-color: var(--cs-cream);
+  color: var(--cs-oxblood);
 }
 .cs-mailing-done {
   margin: 0;
   flex: 0 1 420px;
-  color: #FFE890;
+  color: var(--cs-butter);
   font-size: .95rem;
   line-height: 1.6;
 }

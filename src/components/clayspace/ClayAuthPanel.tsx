@@ -15,9 +15,12 @@ interface Props {
     onClose: () => void;
 }
 
-const INK = "#5D1509";
-const LINE = "rgba(93,21,9,.22)";
-const MUTED = "rgba(93,21,9,.58)";
+// A CSS custom property, not a hex, so a palette change reaches it. Every use
+// below is a CSS context — note the Apple icon sets `fill` via `style`, not as
+// an SVG presentation attribute, where var() would not resolve.
+const INK = "var(--cs-oxblood)";
+const LINE = "var(--cs-oxblood-a22)";
+const MUTED = "var(--cs-oxblood-a58)";
 
 const labelStyle: React.CSSProperties = {
     display: "block",
@@ -32,7 +35,7 @@ const inputWrap: React.CSSProperties = {
     alignItems: "center",
     gap: 10,
     border: `1px solid ${LINE}`,
-    background: "#FFFCF6",
+    background: "var(--cs-form-fill)",
     padding: "0 14px",
     height: 50,
 };
@@ -52,7 +55,7 @@ const socialBtn: React.CSSProperties = {
     flex: 1,
     height: 48,
     border: `1px solid ${LINE}`,
-    background: "#FFFCF6",
+    background: "var(--cs-form-fill)",
     cursor: "pointer",
     display: "flex",
     alignItems: "center",
@@ -108,7 +111,7 @@ const ClayAuthPanel: React.FC<Props> = ({ open, onClose }) => {
                 aria-label={isSignUp ? "Create an account" : "Sign in"}
                 style={{
                     position: "fixed", top: 0, right: open ? 0 : "-100vw", height: "100%",
-                    background: "#FAF1E0", zIndex: 1001, color: INK,
+                    background: "var(--cs-cream)", zIndex: 1001, color: INK,
                     boxShadow: "-16px 0 50px rgba(26,20,17,.28)",
                     transition: "right .42s cubic-bezier(.2,.7,.2,1)",
                     display: "flex", flexDirection: "column",
@@ -149,7 +152,7 @@ const ClayAuthPanel: React.FC<Props> = ({ open, onClose }) => {
                             </svg>
                         </button>
                         <button type="button" className="clay-auth-social" style={socialBtn} aria-label="Continue with Apple">
-                            <svg width="19" height="19" viewBox="0 0 24 24" fill={INK}>
+                            <svg width="19" height="19" viewBox="0 0 24 24" style={{ fill: INK }}>
                                 <path d="M16.4 12.7c0-2.4 2-3.6 2.1-3.6-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.6.9s-1.9-.9-3.1-.8c-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.5 3 2.4 1.2 0 1.6-.8 3.1-.8s1.9.8 3.1.7c1.3 0 2.1-1.2 2.9-2.3.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.6-3.9zM14 5.6c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.5 2.8-1.4z" />
                             </svg>
                         </button>
@@ -170,7 +173,7 @@ const ClayAuthPanel: React.FC<Props> = ({ open, onClose }) => {
                         {isSignUp && (
                             <div style={{ marginBottom: 18 }}>
                                 <label style={labelStyle} htmlFor="cs-name">
-                                    Full name <span style={{ color: "#EE552B" }}>*</span>
+                                    Full name <span style={{ color: "var(--cs-orange)" }}>*</span>
                                 </label>
                                 <div style={inputWrap}>
                                     <UserIcon />
@@ -181,7 +184,7 @@ const ClayAuthPanel: React.FC<Props> = ({ open, onClose }) => {
 
                         <div style={{ marginBottom: 18 }}>
                             <label style={labelStyle} htmlFor="cs-email">
-                                Email address <span style={{ color: "#EE552B" }}>*</span>
+                                Email address <span style={{ color: "var(--cs-orange)" }}>*</span>
                             </label>
                             <div style={inputWrap}>
                                 <MailIcon />
@@ -191,7 +194,7 @@ const ClayAuthPanel: React.FC<Props> = ({ open, onClose }) => {
 
                         <div style={{ marginBottom: 18 }}>
                             <label style={labelStyle} htmlFor="cs-password">
-                                Password <span style={{ color: "#EE552B" }}>*</span>
+                                Password <span style={{ color: "var(--cs-orange)" }}>*</span>
                             </label>
                             <div style={inputWrap}>
                                 <LockIcon />
@@ -232,7 +235,7 @@ const ClayAuthPanel: React.FC<Props> = ({ open, onClose }) => {
 
                         <button type="submit" className="clay-auth-submit" style={{
                             width: "100%", height: 52, border: 0, cursor: "pointer",
-                            background: INK, color: "#FAF1E0", fontFamily: "inherit",
+                            background: INK, color: "var(--cs-cream)", fontFamily: "inherit",
                             fontSize: ".98rem", fontWeight: 700, letterSpacing: ".01em",
                         }}>
                             {isSignUp ? "Create account" : "Sign in"}
@@ -247,7 +250,7 @@ const ClayAuthPanel: React.FC<Props> = ({ open, onClose }) => {
                             className="clay-auth-switch"
                             style={{
                                 background: "none", border: 0, padding: 0, cursor: "pointer",
-                                fontFamily: "inherit", fontSize: ".9rem", fontWeight: 700, color: "#EE552B",
+                                fontFamily: "inherit", fontSize: ".9rem", fontWeight: 700, color: "var(--cs-orange)",
                                 textDecoration: "underline", textUnderlineOffset: 3,
                             }}
                         >
@@ -264,10 +267,10 @@ const ClayAuthPanel: React.FC<Props> = ({ open, onClose }) => {
                     ".clay-auth-panel *,.clay-auth-panel input,.clay-auth-panel button{border-radius:0 !important}" +
                     ".clay-auth-panel input:focus{outline:none}" +
                     ".clay-auth-social:hover{border-color:" + INK + " !important;background:#fff !important}" +
-                    ".clay-auth-close:hover{background:" + INK + " !important;color:#FAF1E0 !important}" +
-                    ".clay-auth-submit:hover{background:#EE552B !important}" +
-                    ".clay-auth-link:hover,.clay-auth-switch:hover{color:#EE552B !important}" +
-                    ".clay-auth-check{width:16px;height:16px;accent-color:#EE552B}" +
+                    ".clay-auth-close:hover{background:" + INK + " !important;color:var(--cs-cream) !important}" +
+                    ".clay-auth-submit:hover{background:var(--cs-orange) !important}" +
+                    ".clay-auth-link:hover,.clay-auth-switch:hover{color:var(--cs-orange) !important}" +
+                    ".clay-auth-check{width:16px;height:16px;accent-color:var(--cs-orange)}" +
                     "@media(max-width:600px){.clay-auth-panel{width:100% !important}}",
             }} />
         </>

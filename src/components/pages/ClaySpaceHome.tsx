@@ -23,7 +23,7 @@ import ShopModernFooter from '@/layouts/footers/ShopModernFooter';
 const ClaySpaceHome = () => {
     return (
         <ScrollSmoothProvider>
-            <CursorAndBackgroundProvider bgColor='#FAF1E0'>
+            <CursorAndBackgroundProvider bgColor='var(--cs-cream)'>
                 <AnimationWrapper>
                     <div className="cs-brand">
                     <div id="magic-cursor" className="cursor-bg-red-2">

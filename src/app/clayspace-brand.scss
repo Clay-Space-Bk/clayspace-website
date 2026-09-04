@@ -126,7 +126,7 @@
 /* Dark grounds are oxblood, not near-black — see the deck's Gift Card and
    "Wheel Throwing" applications. */
 .cs-brand .st-service-area {
-  background-color: #E9E0D6 !important;
+  background-color: var(--cs-classes-ground) !important;
 }
 .cs-brand .st-service-area .tp-section-title-playfair {
   color: var(--cs-brown);
@@ -173,7 +173,7 @@
   font-size: clamp(.86rem, 1.1vw, 1rem);
   line-height: 1.6;
   margin: 0 0 14px;
-  color: rgba(250, 241, 224, .9);
+  color: var(--cs-cream-a90);
 }
 
 /* the facts someone needs before they'd commit */
@@ -187,7 +187,7 @@
   padding-left: 18px;
   font-size: clamp(.8rem, 1vw, .94rem);
   line-height: 1.55;
-  color: rgba(250, 241, 224, .72);
+  color: var(--cs-cream-a72);
 }
 .cs-brand .clay-class-card-points li::before {
   content: "";
@@ -215,14 +215,14 @@
   border-radius: 40px;
   white-space: nowrap;
   background: var(--cs-cream);
-  color: var(--card-color, #5D1509);
+  color: var(--card-color, var(--cs-oxblood));
   border: 1px solid var(--cs-cream);
   transition: background .18s ease, color .18s ease, border-color .18s ease;
 }
 .cs-brand .clay-class-cta:hover {
   background: var(--cs-butter);
   border-color: var(--cs-butter);
-  color: var(--card-color, #5D1509);
+  color: var(--card-color, var(--cs-oxblood));
 }
 
 /* Below the pin breakpoint the cards simply stack; give the type room. */
@@ -282,16 +282,16 @@
 /* --------------------------------------------------------------------------
    Hero — the illustrated still life sits as the section's background, anchored
    to the bottom edge so the pots keep their ground line at every width.
-   The image's own ground (#F2EBE5) is set as the backing colour so the letter-
+   The image's own ground is set as the backing colour so the letter-
    boxed area either side blends into it rather than showing a seam.
    -------------------------------------------------------------------------- */
 .cs-brand .st-hero-area {
-  background-color: #F2EBE5;
+  background-color: var(--cs-hero-backing);
   /* A flat wash of the backing colour sits over the art at 75%, leaving the
      art at a quarter strength. Doing it this way rather than with opacity keeps the art a
      background, so the copy above it needs no stacking context. */
   background-image:
-    linear-gradient(rgba(242, 235, 229, .75), rgba(242, 235, 229, .75)),
+    linear-gradient(var(--cs-hero-backing-a75), var(--cs-hero-backing-a75)),
     url("/assets/img/clayspace/homev3.jpg");
   background-repeat: no-repeat, no-repeat;
   background-position: center, center bottom;
@@ -323,7 +323,7 @@
   height: clamp(150px, 16vw, 210px);
   /* a thrown-and-squashed blob rather than a circle, echoing the logo mark */
   border-radius: 58% 42% 47% 53% / 46% 55% 45% 54%;
-  background-color: #6B5D54; /* matches the nav rail */
+  background-color: var(--cs-taupe); /* matches the nav rail */
   color: var(--cs-cream);
 }
 .cs-brand .clay-hero-cta a .st-hero-btn-text {

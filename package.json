@@ -8,10 +8,11 @@
     "start": "npx --yes serve@latest out -l 3008",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
+    "check:tokens": "bash scripts/check-tokens.sh",
     "clean": "rm -rf node_modules package-lock.json yarn.lock"
   },
   "dependencies": {
-    "@clayspace/tokens": "github:Clay-Space-Bk/clayspace-tokens#v0.1.0",
+    "@clayspace/tokens": "github:Clay-Space-Bk/clayspace-tokens#v0.3.1",
     "@gsap/react": "^2.1.2",
     "@types/jquery": "^3.5.32",
     "atropos": "^2.0.2",

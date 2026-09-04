@@ -112,7 +112,7 @@ const ClayNavRail: React.FC<Props> = ({ open, onClose, onAuth }) => {
                 aria-hidden={!open}
                 style={{
                     position: "fixed", top: 0, right: open ? 0 : "-100vw", height: "100%",
-                    background: "#6B5D54", zIndex: 999, boxShadow: "-16px 0 50px rgba(26,20,17,.28)",
+                    background: "var(--cs-taupe)", zIndex: 999, boxShadow: "-16px 0 50px rgba(26,20,17,.28)",
                     transition: "right .42s cubic-bezier(.2,.7,.2,1)",
                     display: "flex", flexDirection: "column", padding: "74px 40px 22px",
                 }}

@@ -31,3 +31,8 @@ jobs:
 
       - name: Lint
         run: npm run lint
+
+      # Brand colours must reach the page as --cs-* from @clayspace/tokens.
+      # A hex typed into a component is invisible to a palette change.
+      - name: Token compliance
+        run: npm run check:tokens

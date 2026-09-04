@@ -24,7 +24,7 @@ const CartOffcanvas = () => {
                         </div>
 
                         {cartItems.length === 0 ? (
-                            <div style={{ padding: "56px 8px", textAlign: "center", color: "rgba(93,21,9,.6)" }}>
+                            <div style={{ padding: "56px 8px", textAlign: "center", color: "var(--cs-oxblood-a60)" }}>
                                 <p style={{ margin: "0 0 20px" }}>Your cart is empty.</p>
                                 <Link href="/shop" onClick={toggleCartOffcanvas} className="cartmini__empty-btn" style={{ display: "inline-block", padding: "14px 26px" }}>
                                     Browse the shop
@@ -49,7 +49,7 @@ const CartOffcanvas = () => {
                                             </div>
                                             <div className="cartmini__stepper" style={{ display: "flex", alignItems: "center", marginTop: 10 }}>
                                                 <button onClick={() => decQty(item.id)} aria-label="Decrease" style={qtyBtn}>&minus;</button>
-                                                <span style={{ minWidth: 40, height: 30, lineHeight: "30px", textAlign: "center", fontWeight: 600, borderTop: "1px solid rgba(93,21,9,.28)", borderBottom: "1px solid rgba(93,21,9,.28)" }}>{item.quantity}</span>
+                                                <span style={{ minWidth: 40, height: 30, lineHeight: "30px", textAlign: "center", fontWeight: 600, borderTop: "1px solid var(--cs-oxblood-a28)", borderBottom: "1px solid var(--cs-oxblood-a28)" }}>{item.quantity}</span>
                                                 <button onClick={() => incQty(item.id)} aria-label="Increase" style={qtyBtn}>+</button>
                                             </div>
                                         </div>
@@ -84,8 +84,8 @@ const CartOffcanvas = () => {
 };
 
 const qtyBtn: React.CSSProperties = {
-    width: 30, height: 30, borderRadius: 0, border: "1px solid rgba(93,21,9,.28)",
-    background: "transparent", color: "#5D1509", fontSize: 15, lineHeight: 1, cursor: "pointer",
+    width: 30, height: 30, borderRadius: 0, border: "1px solid var(--cs-oxblood-a28)",
+    background: "transparent", color: "var(--cs-oxblood)", fontSize: 15, lineHeight: 1, cursor: "pointer",
 };
 
 export default CartOffcanvas;
