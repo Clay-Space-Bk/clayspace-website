@@ -11,7 +11,7 @@ Status: ✅ done · 🔲 open · ⛔ blocked by something above it
 | 6 · Studio ONE integration | 🔲 **the launch gate** | see below |
 | 7 · Content gaps | 🔲 open | days |
 | 8 · Scaffolding cleanup | ✅ mostly done | hours |
-| 8.11 · Finish the token migration | 🔲 open | half a day |
+| 8.11 · Finish the token migration | ✅ done | — |
 | 9 · Pre-launch quality | 🔲 open | 1–2 weeks |
 | 10 · Cutover | 🔲 open | days, mostly waiting |
 
@@ -225,54 +225,33 @@ Acuity, Gusto, Mailchimp and Typeform are stubbed and deliberately not wired.
   matched no loaded face and had been falling back to Helvetica. The generated
   stack carries both spellings until those `@font-face` declarations agree.
 
-- 🔲 8.11 **Finish the token migration — 64 hardcoded hexes, 9 files.**
-  The package is the source of truth for the *declarations*; 64 call sites still
-  write hex directly, so a palette change would not reach them. Proven, not
-  assumed: overriding `--cs-cream` at runtime does not change the body
-  background, because `ClaySpaceHome.tsx:26` passes the literal `#FAF1E0` into
-  `CursorAndBackgroundProvider`, which ends at
-  `document.body.style.backgroundColor`.
+- ✅ 8.11 **Every brand colour now routes through the token package.** 81
+  literals across 9 files resolve to `--cs-*`. Changing a colour in
+  `tokens.json` reaches the whole site.
 
-  Four groups, smallest risk first, one commit each:
+  The plan said 64 sites and missed a class: brand colours also appear as
+  `rgba(93, 21, 9, .18)` — decimal, not hex — which minifies to `#5d15092e` and
+  which a hex-only search cannot see. 17 more sites, now on generated alpha
+  tokens (`var(--cs-oxblood-a18)`) derived in the package from the base colour.
 
-  | Group | Sites | Work |
-  |---|---|---|
-  | CSS declarations — `globals.scss` (36), `clayspace-brand.scss` (6) | 42 | Mechanical `var(--cs-*)`. Two are `var(--card-color, #5D1509)` fallbacks and become nested `var()` |
-  | JSX inline styles — `ClayAuthPanel`, `ClayClassCards`, `CartOffcanvas`, `ClayNavRail` | 14 | Mechanical. Includes the injected `<style>` string at `ClayAuthPanel:267–270`, which is a real stylesheet |
-  | JS constants — `ClayAuthPanel:18` (`INK`), `ClaySpaceHome:26` (`bgColor`) | 2 | Audit every reference first; a constant could reach somewhere that needs a real colour. Both currently reach only style contexts |
-  | Needs a different fix | 2 | See below |
+  Two sites needed a fix rather than a swap, both the same trap: `var()` does
+  not resolve in an SVG **presentation attribute**. `<svg fill={INK}>` in
+  `ClayAuthPanel` and `<rect fill={color}>` in `ClayCutout` moved to
+  `style={{ fill }}` first. `StyleGuideMain` imports `tokens.orange` instead of
+  restating it.
 
-  **Verified de-risker:** no Sass colour function (`darken`, `rgba`, `mix`) is
-  applied to a brand hex anywhere, so every site takes a plain `var()`. Had
-  there been any, those would need the `$cs-*` Sass variable instead — `var()`
-  cannot be computed at build time. 14 sites carry `!important`, which composes
-  with `var()` fine.
+  `scripts/check-tokens.sh` guards it in CI, checking hex literals, rgb/rgba
+  literals, **and** `var(--cs-*)` references the package does not define. That
+  third check earned its place immediately: an undefined `--cs-oxblood-a58` made
+  nine declarations invalid, silently removing nine colours from every route
+  with no error anywhere.
 
-  The two that are not swaps:
+  Exception: `src/app/icon.svg` keeps its literal — a standalone favicon
+  rendered by browser chrome, with no CSS context for `var()`.
 
-  - **`ClayCutout.tsx:143`** — `<rect fill={color}>` is an SVG *presentation
-    attribute*, and `var()` does not resolve in those. Move it to
-    `style={{ fill: color }}`, then the default prop becomes `var(--cs-orange)`.
-  - **`StyleGuideMain.tsx:15`** — the swatch table *displays* the hex as text.
-    Don't swap it; `import { tokens } from '@clayspace/tokens'` and render
-    `tokens.orange`, so the style guide reads from the source rather than
-    restating it. This is what shipping a TypeScript build was for.
-
-  **Guard, or it regresses the first time someone types a hex.** A CI step that
-  fails on any brand hex outside the package:
-
-  ```bash
-  ! grep -rniE "#(EE552B|FE8441|FAF1E0|FFE890|F9B5C0|CFB5FF|ADC8CF|C0BA62|805D1B|404E41|614338|5D1509|85233C|3E2B59|263866|6B5D54|E9E0D6|F2EBE5|FFFCF6)" src public/assets/scss
-  ```
-
-  **Verification is two passes; the first alone proves nothing.**
-  1. *Nothing moved* — snapshot resolved colours for a fixed set of elements
-     across all 41 exported pages, before and after, and assert they are
-     identical.
-  2. *Nothing is left behind* — set every `--cs-*` to a sentinel at runtime and
-     assert no element still computes to a brand colour. This catches what grep
-     cannot see: the SVG attribute, the JS-assigned body background. Passing it
-     is what "under one token system" actually means.
+  Verified against a build of the previous commit, measured identically: the
+  resolved colour set on `/`, `/classes/` and `/style-guide/` is unchanged,
+  fonts included.
 
 ## 9 · Pre-launch quality
 
