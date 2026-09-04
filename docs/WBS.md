@@ -11,6 +11,7 @@ Status: ✅ done · 🔲 open · ⛔ blocked by something above it
 | 6 · Studio ONE integration | 🔲 **the launch gate** | see below |
 | 7 · Content gaps | 🔲 open | days |
 | 8 · Scaffolding cleanup | ✅ mostly done | hours |
+| 8.11 · Finish the token migration | 🔲 open | half a day |
 | 9 · Pre-launch quality | 🔲 open | 1–2 weeks |
 | 10 · Cutover | 🔲 open | days, mostly waiting |
 
@@ -212,6 +213,66 @@ Acuity, Gusto, Mailchimp and Typeform are stubbed and deliberately not wired.
   exist; `blogData` / `portfolioData` / `testimonialData` held 43 / 60 / 59
   entries for the 3 / 6 / 4 that render. Removed ~40 GSAP functions, 3 modules,
   230 demo images and two exports of invented design awards
+- ✅ 8.10 **Brand palette extracted to a shared package.**
+  [`@clayspace/tokens`](https://github.com/Clay-Space-Bk/clayspace-tokens) is
+  public and holds one `tokens.json`, generated into CSS, Sass and TypeScript.
+  `clayspace-brand.scss` no longer defines any `--cs-*`; it `@use`s the package.
+  Public because it carries only values already served to every visitor, which
+  keeps both builds credential-free.
+
+  It caught a live bug on the way in: this site registers the brand face as
+  `ApfelGrotezk`, the admin as `Apfel Grotezk`, so `--cs-ff` in the admin
+  matched no loaded face and had been falling back to Helvetica. The generated
+  stack carries both spellings until those `@font-face` declarations agree.
+
+- 🔲 8.11 **Finish the token migration — 64 hardcoded hexes, 9 files.**
+  The package is the source of truth for the *declarations*; 64 call sites still
+  write hex directly, so a palette change would not reach them. Proven, not
+  assumed: overriding `--cs-cream` at runtime does not change the body
+  background, because `ClaySpaceHome.tsx:26` passes the literal `#FAF1E0` into
+  `CursorAndBackgroundProvider`, which ends at
+  `document.body.style.backgroundColor`.
+
+  Four groups, smallest risk first, one commit each:
+
+  | Group | Sites | Work |
+  |---|---|---|
+  | CSS declarations — `globals.scss` (36), `clayspace-brand.scss` (6) | 42 | Mechanical `var(--cs-*)`. Two are `var(--card-color, #5D1509)` fallbacks and become nested `var()` |
+  | JSX inline styles — `ClayAuthPanel`, `ClayClassCards`, `CartOffcanvas`, `ClayNavRail` | 14 | Mechanical. Includes the injected `<style>` string at `ClayAuthPanel:267–270`, which is a real stylesheet |
+  | JS constants — `ClayAuthPanel:18` (`INK`), `ClaySpaceHome:26` (`bgColor`) | 2 | Audit every reference first; a constant could reach somewhere that needs a real colour. Both currently reach only style contexts |
+  | Needs a different fix | 2 | See below |
+
+  **Verified de-risker:** no Sass colour function (`darken`, `rgba`, `mix`) is
+  applied to a brand hex anywhere, so every site takes a plain `var()`. Had
+  there been any, those would need the `$cs-*` Sass variable instead — `var()`
+  cannot be computed at build time. 14 sites carry `!important`, which composes
+  with `var()` fine.
+
+  The two that are not swaps:
+
+  - **`ClayCutout.tsx:143`** — `<rect fill={color}>` is an SVG *presentation
+    attribute*, and `var()` does not resolve in those. Move it to
+    `style={{ fill: color }}`, then the default prop becomes `var(--cs-orange)`.
+  - **`StyleGuideMain.tsx:15`** — the swatch table *displays* the hex as text.
+    Don't swap it; `import { tokens } from '@clayspace/tokens'` and render
+    `tokens.orange`, so the style guide reads from the source rather than
+    restating it. This is what shipping a TypeScript build was for.
+
+  **Guard, or it regresses the first time someone types a hex.** A CI step that
+  fails on any brand hex outside the package:
+
+  ```bash
+  ! grep -rniE "#(EE552B|FE8441|FAF1E0|FFE890|F9B5C0|CFB5FF|ADC8CF|C0BA62|805D1B|404E41|614338|5D1509|85233C|3E2B59|263866|6B5D54|E9E0D6|F2EBE5|FFFCF6)" src public/assets/scss
+  ```
+
+  **Verification is two passes; the first alone proves nothing.**
+  1. *Nothing moved* — snapshot resolved colours for a fixed set of elements
+     across all 41 exported pages, before and after, and assert they are
+     identical.
+  2. *Nothing is left behind* — set every `--cs-*` to a sentinel at runtime and
+     assert no element still computes to a brand colour. This catches what grep
+     cannot see: the SVG attribute, the JS-assigned body background. Passing it
+     is what "under one token system" actually means.
 
 ## 9 · Pre-launch quality
 
@@ -250,6 +311,13 @@ Acuity, Gusto, Mailchimp and Typeform are stubbed and deliberately not wired.
   structured data on the site customers see today is wrong. Fix it there; it is
   already correct here.
 - Studio ONE's GCP deployment (6.2) is tracked in that repository, not this one.
+- **Studio ONE still holds its own copy of the palette** — `--cs-orange: #ee552b`
+  in `src/styles/clayspace-brand.css` and `primary.main: '#EE552B'` in
+  `src/configs/themesConfig.ts`, the same value in two languages with nothing
+  keeping them in step. `@clayspace/tokens` already emits both dialects it
+  needs, so adopting it there is a de-duplication rather than a rewrite. Studio
+  ONE stays in its own separate monorepo; the package is how shared concerns
+  cross that boundary.
 
 ---
 
@@ -258,6 +326,10 @@ Acuity, Gusto, Mailchimp and Typeform are stubbed and deliberately not wired.
 **6.1 real auth → 6.2 deploy Studio ONE → 6.3 origins and CORS → 6.4 the
 website's API layer → 6.5 payment → 9 quality → 10 cutover.**
 
-7, 8 and most of 9 are independent and can run alongside any of it. Rough
-weights: auth is days, the website's API layer is a week or two, and Studio
-ONE's deployment is the long pole. The site itself is the part that is finished.
+7, 8 and most of 9 are independent and can run alongside any of it — 8.11 in
+particular is half a day, needs nobody else, and is worth doing before more code
+gets written against the palette.
+
+Rough weights: auth is days, the website's API layer is a week or two, and
+Studio ONE's deployment is the long pole. The site itself is the part that is
+finished.
