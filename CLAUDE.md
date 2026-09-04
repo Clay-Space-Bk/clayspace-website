@@ -18,7 +18,7 @@ source of truth and are worth opening before non-trivial work:
 | [docs/DEVELOPING.md](docs/DEVELOPING.md) | Recipes, conventions, traps |
 | [docs/DEPLOYING.md](docs/DEPLOYING.md) | Build, branches, CI |
 | [docs/SITEMAP.md](docs/SITEMAP.md) | Every route and how search treats it |
-| [docs/ROADMAP.md](docs/ROADMAP.md) | What is done and what is left |
+| [docs/WorkBreakStructure.md](docs/WorkBreakStructure.md) | The WBS — what is left, in dependency order |
 | [STYLE-GUIDE.md](STYLE-GUIDE.md) | Brand tokens; renders live at `/style-guide` |
 
 ---
@@ -117,3 +117,10 @@ Studio ONE (`clayspace-admin`) is the system of record — 44 Postgres tables
 covering members, enrollments, memberships, tickets, firings and a ledger. This
 website will call it over a narrow HTTPS API. It never holds credentials, and
 the two never deploy together. That boundary is the security model.
+
+Three things stand between here and that integration, in order: Studio ONE's
+member login issues a 30-day session on **an email address alone** and needs
+real authentication first; Studio ONE is local-only and has to be deployed; and
+its cookie auth is same-origin, with no CORS on any of its 128 routes. All of it
+is written up in
+[docs/WorkBreakStructure.md §6](docs/WorkBreakStructure.md#6--studio-one-integration--the-launch-gate).

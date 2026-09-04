@@ -56,7 +56,7 @@ convenience — read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) first.
 
 **Nothing on the site transacts.** Every form shows a confirmation and posts
 nowhere. That is the launch gate, not a bug you found. The backend is Studio
-ONE, a separate app; see [docs/ROADMAP.md](docs/ROADMAP.md) §6.
+ONE, a separate app; see [docs/WorkBreakStructure.md](docs/WorkBreakStructure.md) §6.
 
 ---
 
@@ -92,7 +92,7 @@ reachable from a route — there is no dead code to ignore.
 | [docs/DEVELOPING.md](docs/DEVELOPING.md) | **Recipes** — add a page, add a section, style it, and the traps that bite |
 | [docs/DEPLOYING.md](docs/DEPLOYING.md) | Building, the two deploy targets, CI |
 | [docs/SITEMAP.md](docs/SITEMAP.md) | Every route, its title, and the navigation hierarchy |
-| [docs/ROADMAP.md](docs/ROADMAP.md) | What is done, what is left, what blocks launch |
+| [docs/WorkBreakStructure.md](docs/WorkBreakStructure.md) | The WBS — what is done, what is left, and the dependency order to launch |
 | [STYLE-GUIDE.md](STYLE-GUIDE.md) | Brand tokens and component patterns. Renders live at `/style-guide` |
 | [ATTRIBUTION.md](ATTRIBUTION.md) | Font licences — all resolved, nothing bundled is unlicensed |
 | [LICENSE](LICENSE) | Proprietary. Shared for Clay Space work only, not open source |
@@ -142,3 +142,7 @@ These are deliberate and tracked. Don't "fix" them without the real asset.
 - This website will call Studio ONE over a **narrow HTTPS API**. It never
   receives database credentials or auth secrets, and it never deploys alongside
   it. Keep that boundary.
+- **Studio ONE's member login is not yet real authentication** — it issues a
+  30-day session on an email address alone. That has to be fixed before this
+  site can call it. See
+  [WorkBreakStructure §6.1](docs/WorkBreakStructure.md#61--real-member-authentication--do-this-first).
