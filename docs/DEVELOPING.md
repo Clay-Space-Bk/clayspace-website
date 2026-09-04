@@ -65,7 +65,7 @@ Then, before you call it done:
 
 Copy an existing one and hand it to `ClayFormMain`. Every form currently shows a
 confirmation and posts nowhere — that is deliberate and tracked in
-[WorkBreakStructure.md](WorkBreakStructure.md) §6, not something to quietly wire up to a third-party
+[WBS.md](WBS.md) §6, not something to quietly wire up to a third-party
 endpoint.
 
 ## Retire a URL without breaking it

@@ -170,4 +170,4 @@ at runtime are covered.
 - How the routing works, and why there are no dynamic segments —
   [ARCHITECTURE.md](ARCHITECTURE.md)
 - How to add a route — [DEVELOPING.md](DEVELOPING.md#add-a-content-page)
-- What is still missing from these pages — [WorkBreakStructure.md](WorkBreakStructure.md)
+- What is still missing from these pages — [WBS.md](WBS.md)

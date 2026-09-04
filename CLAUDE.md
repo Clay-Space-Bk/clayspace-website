@@ -18,7 +18,7 @@ source of truth and are worth opening before non-trivial work:
 | [docs/DEVELOPING.md](docs/DEVELOPING.md) | Recipes, conventions, traps |
 | [docs/DEPLOYING.md](docs/DEPLOYING.md) | Build, branches, CI |
 | [docs/SITEMAP.md](docs/SITEMAP.md) | Every route and how search treats it |
-| [docs/WorkBreakStructure.md](docs/WorkBreakStructure.md) | The WBS — what is left, in dependency order |
+| [docs/WBS.md](docs/WBS.md) | Work breakdown — what is left, in dependency order |
 | [STYLE-GUIDE.md](STYLE-GUIDE.md) | Brand tokens; renders live at `/style-guide` |
 
 ---
@@ -123,4 +123,4 @@ member login issues a 30-day session on **an email address alone** and needs
 real authentication first; Studio ONE is local-only and has to be deployed; and
 its cookie auth is same-origin, with no CORS on any of its 128 routes. All of it
 is written up in
-[docs/WorkBreakStructure.md §6](docs/WorkBreakStructure.md#6--studio-one-integration--the-launch-gate).
+[docs/WBS.md §6](docs/WBS.md#6--studio-one-integration--the-launch-gate).
